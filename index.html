@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Warrior's Compass | Personal Rulebook</title>
+  <meta name="description" content="A modern, Gita-inspired personal rulebook for focus, equanimity, and purposeful action.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08080a;
+      --surface: #0f0f12;
+      --surface-hover: #16161a;
+      --text: #e8e6df;
+      --text-muted: #8a877d;
+      --accent: #d4af37;
+      --accent-soft: rgba(212, 175, 55, 0.12);
+      --accent-glow: rgba(212, 175, 55, 0.25);
+      --border: rgba(255, 255, 255, 0.06);
+      --radius: 16px;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Inter', sans-serif;
+      --transition: 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Utility */
+    .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 48px 0; opacity: 0.4; }
+    .sanskrit { font-family: var(--font-serif); font-style: italic; color: var(--accent); }
+    .gold-text { color: var(--accent); }
+    .muted { color: var(--text-muted); }
+
+    /* Header / Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 30%, var(--accent-soft) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .hero .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 32px;
+    }
+    .hero .quote {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .scroll-indicator {
+      position: absolute; bottom: 32px;
+      animation: bounce 2s infinite;
+      color: var(--accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    /* Cards */
+    .card-grid { display: grid; gap: 24px; margin: 24px 0; }
+    .card-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { background: var(--surface-hover); transform: translateY(-4px); box-shadow: var(--shadow); }
+    .card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    .card p, .card ul { font-size: 0.95rem; color: var(--text-muted); }
+    .card ul { padding-left: 18px; margin-top: 8px; }
+    .card li { margin-bottom: 6px; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      text-align: center;
+      margin-bottom: 16px;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    section h2::after {
+      content: ''; display: block; width: 60px; height: 2px;
+      background: var(--accent); margin: 12px auto 0;
+    }
+    .section-intro { text-align: center; max-width: 680px; margin: 0 auto 40px; color: var(--text-muted); }
+
+    /* Pillars */
+    .pillar { position: relative; padding-left: 20px; border-left: 2px solid var(--accent); }
+    .pillar h4 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
+    .pillar ul { margin-top: 10px; }
+
+    /* Practice / Intention */
+    .intention-box {
+      background: var(--surface);
+      border: 1px dashed var(--accent);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      margin: 32px 0;
+    }
+    .intention-input {
+      width: 100%; max-width: 400px; padding: 12px 16px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text); border-radius: 8px; font-family: var(--font-sans);
+      margin: 12px 0; font-size: 1rem;
+    }
+    .intention-input:focus { outline: none; border-color: var(--accent); }
+    .btn {
+      background: var(--accent); color: #08080a; border: none;
+      padding: 10px 20px; border-radius: 8px; font-weight: 600;
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn:hover { background: #e6c455; transform: scale(1.03); }
+
+    /* Crisis Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      display: none; justify-content: center; align-items: center;
+      z-index: 1000; backdrop-filter: blur(6px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; max-width: 480px;
+      width: 90%; position: relative;
+    }
+    .modal h3 { font-family: var(--font-serif); color: var(--accent); margin-bottom: 16px; }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; background: transparent;
+      border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;
+    }
+    .crisis-steps li { margin-bottom: 10px; padding-left: 12px; border-left: 2px solid var(--accent); }
+
+    /* Affirmation */
+    .affirmation {
+      text-align: center; padding: 60px 24px;
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      line-height: 1.6;
+      max-width: 800px; margin: 0 auto;
+      background: linear-gradient(135deg, var(--accent-soft), transparent 70%);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 40px 24px 60px;
+      color: var(--text-muted); font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-btn {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--accent); color: #08080a;
+      width: 48px; height: 48px; border-radius: 50%;
+      border: none; cursor: pointer; font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      z-index: 900; transition: var(--transition);
+    }
+    .nav-btn:hover { transform: scale(1.1); }
+
+    @media (max-width: 600px) {
+      .hero { min-height: 80vh; }
+      .card-grid.cols-2 { grid-template-columns: 1fr; }
+      section { padding: 50px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <h1 class="reveal">The Warrior's Compass</h1>
+      <p class="subtitle reveal">A personal rulebook for focus, equanimity, and purposeful action. Not perfection. Direction.</p>
+      <div class="quote reveal">
+        <span class="sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।</span><br>
+        <em>"You have the right to action alone, never to its fruits."</em> — Bhagavad Gita 2.47
+      </div>
+    </div>
+    <div class="scroll-indicator" onclick="document.getElementById('truths').scrollIntoView()">↓</div>
+  </header>
+
+  <main class="container">
+    <section id="truths">
+      <h2 class="reveal">Foundational Truths</h2>
+      <p class="section-intro reveal">Your inner ground. Return to these when the mind clouds or the path feels heavy.</p>
+      <div class="card-grid cols-2">
+        <div class="card reveal">
+          <h3>1. Doer, Not Owner</h3>
+          <p>Act with full effort. Release attachment to outcome. Success and failure are teachers, not judges.</p>
+        </div>
+        <div class="card reveal">
+          <h3>2. Dharma is Anchor</h3>
+          <p>In confusion, ask: <em>"What is the righteous action before me—right now?"</em> Not what is easy. What is true.</p>
+        </div>
+        <div class="card reveal">
+          <h3>3. Mind: Friend & Foe</h3>
+          <p>Train it with discipline. Guard it with discernment. When it races, return to the breath. When it doubts, return to purpose.</p>
+        </div>
+        <div class="card reveal">
+          <h3>4. Equanimity is Strength</h3>
+          <p>Praise and criticism, gain and loss, pleasure and pain—meet them all with steady wisdom. This is <em>Sthitaprajna</em>.</p>
+        </div>
+        <div class="card reveal" style="grid-column: 1 / -1;">
+          <h3>5. You Are the Witness</h3>
+          <p>You are not your thoughts. Observe fear, doubt, desire. Do not fight them. Do not follow them. See them. Let them pass. You remain.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="pillars">
+      <h2 class="reveal">The Three Pillars</h2>
+      <p class="section-intro reveal">Paths of practice. Weave them into your daily rhythm.</p>
+      <div class="card-grid cols-2">
+        <div class="pillar card reveal">
+          <h4>🕉️ Karma Yoga — Right Action</h4>
+          <ul>
+            <li>Act without anxiety. Do the work because it is yours.</li>
+            <li>One-pointed focus. Multitasking is fragmentation.</li>
+            <li>Start before you are ready. Begin. Adjust. Continue.</li>
+            <li>Effort is your offering. Measure sincerity, not metrics.</li>
+            <li>When stuck: <em>"What is the next smallest right action?"</em></li>
+          </ul>
+        </div>
+        <div class="pillar card reveal">
+          <h4>🧠 Jnana Yoga — Wisdom & Discernment</h4>
+          <ul>
+            <li>Separate signal from noise. Focus on what you control.</li>
+            <li>Question narratives. Replace <em>"I am behind"</em> with <em>"I am becoming."</em></li>
+            <li>Seek knowledge, not just information. Let wisdom compound.</li>
+            <li>Doubt is a tool, not a trap. Use it to inquire.</li>
+            <li>Write to clarify. Journaling is mental surgery.</li>
+          </ul>
+        </div>
+        <div class="pillar card reveal" style="grid-column: 1 / -1;">
+          <h4>🧘 Dhyana Yoga — Inner Discipline</h4>
+          <ul>
+            <li>Guard your attention like sacred space. Curate inputs.</li>
+            <li>Create mental silence daily. Stillness rewires reactivity.</li>
+            <li>When overwhelmed, return to the breath. Anchor in the present.</li>
+            <li>Rest is renewal. Burnout is imbalance.</li>
+            <li>Speak to yourself as Krishna would to Arjuna: with compassion and unwavering belief.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="rules">
+      <h2 class="reveal">Rules for the Journey</h2>
+      <p class="section-intro reveal">Practical boundaries for mind, growth, relationships, and self.</p>
+      <div class="card-grid cols-2">
+        <div class="card reveal">
+          <h3>🛡️ Mental Hygiene</h3>
+          <ul>
+            <li>Do not feed the "what-if" monster. Worry is imagination misused.</li>
+            <li>Comparison is theft. Your journey is yours alone.</li>
+            <li>When fear arises, name it. Naming reduces its power.</li>
+            <li>Practice "mental boxing": Acknowledge distractions, place them in a box, return to focus.</li>
+            <li>End each day with: <em>"Did I act with integrity?"</em></li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <h3>🌱 Growth & Learning</h3>
+          <ul>
+            <li>Foundations before fireworks. Master the basics.</li>
+            <li>Teach to learn. Explain concepts in your own words.</li>
+            <li>Seek friction, not comfort. Growth lives at the edge of understanding.</li>
+            <li>Feedback is fuel. Extract the lesson. Discard the noise.</li>
+            <li>Your brand is your character in action. Let consistency speak.</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <h3>🤝 Relationships & Environment</h3>
+          <ul>
+            <li>Choose influences wisely. Spend time with those who elevate.</li>
+            <li>Serve without expectation. This is Karma Yoga in community.</li>
+            <li>Set boundaries with love. "No" to dilution is "yes" to Dharma.</li>
+            <li>Honor your roots. Carry identity with pride.</li>
+            <li>When in doubt, withdraw to reflect. Solitude is recalibration.</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <h3>💙 Self & Compassion</h3>
+          <ul>
+            <li>You are not your productivity. Your worth is inherent.</li>
+            <li>Speak to yourself in the voice of your highest self.</li>
+            <li>Honor the body. Move it. Nourish it. Rest it.</li>
+            <li>Forgive yourself quickly. Mistakes are data. Regret leads to adjustment, then release.</li>
+            <li>Remember: you are both student and teacher. Stay humble. Stay curious.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="practice">
+      <h2 class="reveal">The Practice</h2>
+      <p class="section-intro reveal">How to live this rulebook without rigidity.</p>
+      
+      <div class="intention-box reveal">
+        <h3 style="font-family: var(--font-serif); color: var(--accent); margin-bottom: 8px;">🌅 Today's Intention</h3>
+        <p class="muted">Choose one principle to embody. Save it. Revisit tonight.</p>
+        <input type="text" id="daily-intention" class="intention-input" placeholder="e.g., I practice equanimity in uncertainty">
+        <button class="btn" id="save-intention">Anchor It</button>
+        <p id="intention-status" class="muted" style="margin-top: 8px; font-size: 0.85rem;"></p>
+      </div>
+
+      <div class="card-grid cols-2">
+        <div class="card reveal">
+          <h3>📖 Daily Rhythm</h3>
+          <p><strong>Morning (2 min):</strong> Read one principle. Set one intention.<br>
+          <strong>Evening (5 min):</strong> Journal: Where did I act with focus? Where did I lose equanimity? What to adjust?<br>
+          <strong>Weekly (15 min):</strong> Re-read. What resonated? What needs refinement?</p>
+        </div>
+        <div class="card reveal" style="text-align: center;">
+          <h3>🆘 Crisis Protocol</h3>
+          <p>When overwhelmed, panic, or lost in noise.</p>
+          <button class="btn" id="open-crisis" style="margin-top: 16px;">Activate Protocol</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="affirmation">
+      <div class="affirmation reveal">
+        <em>"I am not the body, nor the mind.<br>
+        I am the conscious witness, the eternal learner, the humble doer.<br>
+        I act with sincerity. I release the fruits.<br>
+        I walk my Dharma—one step, one breath, one day at a time."</em><br><br>
+        <span class="sanskrit">श्री कृष्णार्पणमस्तु।</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Version 1.0 · Forged for clarity, not perfection · Review monthly · <span class="gold-text">उद्धरेदात्मनात्मानं नात्मानमवसादयेत्</span></p>
+  </footer>
+
+  <!-- Crisis Modal -->
+  <div class="modal-overlay" id="crisis-modal">
+    <div class="modal">
+      <button class="modal-close" id="close-crisis">&times;</button>
+      <h3>🕉️ Crisis Protocol</h3>
+      <ol class="crisis-steps">
+        <li><strong>Pause.</strong> Inhale 4s, hold 4s, exhale 6s. Repeat 3x.</li>
+        <li><strong>Name it.</strong> "This is overwhelm / fear / doubt. It is temporary."</li>
+        <li><strong>Ask:</strong> "What is within my control right now?"</li>
+        <li><strong>Do that one thing.</strong> Smallest right action. Nothing else.</li>
+        <li><strong>Return to breath.</strong> Anchor in the present. You are safe. You are capable.</li>
+      </ol>
+      <p class="muted" style="margin-top: 16px; font-size: 0.9rem;">Close this when ready. The storm passes. You remain.</p>
+    </div>
+  </div>
+
+  <button class="nav-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Back to top">↑</button>
+
+  <script>
+    // Scroll Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Intention Storage
+    const intentionInput = document.getElementById('daily-intention');
+    const saveBtn = document.getElementById('save-intention');
+    const status = document.getElementById('intention-status');
+
+    const today = new Date().toDateString();
+    const savedDate = localStorage.getItem('intention-date');
+    const savedText = localStorage.getItem('daily-intention');
+
+    if (savedDate === today && savedText) {
+      intentionInput.value = savedText;
+      intentionInput.readOnly = true;
+      status.textContent = '✓ Anchored for today. Revisit tonight.';
+    }
+
+    saveBtn.addEventListener('click', () => {
+      const val = intentionInput.value.trim();
+      if (!val) { status.textContent = 'Please write something meaningful.'; return; }
+      localStorage.setItem('daily-intention', val);
+      localStorage.setItem('intention-date', today);
+      intentionInput.readOnly = true;
+      status.textContent = '✓ Anchored for today. Revisit tonight.';
+      saveBtn.style.background = '#2a9d8f';
+      saveBtn.textContent = 'Saved';
+    });
+
+    // Crisis Modal
+    const modal = document.getElementById('crisis-modal');
+    document.getElementById('open-crisis').addEventListener('click', () => modal.classList.add('active'));
+    document.getElementById('close-crisis').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    // Escape key closes modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modal.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
